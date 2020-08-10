@@ -6,7 +6,7 @@ export const fetchReddits = (sector) => {
             dispatch(fetchRedditsOngoing())
             let formData = new FormData()
             formData.append("sector", sector)
-            const response = await fetch("http://localhost:5000/reddit", {
+            const response = await fetch("https://glide-flask-backend.herokuapp.com/reddit", {
                 method: "POST",
                 body: formData,
             });

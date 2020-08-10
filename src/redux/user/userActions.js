@@ -9,7 +9,7 @@ export const loginUser = (email, password) => {
         try {
             dispatch(loginUserOngoing())
             // console.log('pressed')
-            const response = await fetch("http://localhost:8000/api/user/login", {
+            const response = await fetch("https://glide-node-backend.herokuapp.com/api/user/login", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export const registerUser = (name, email, password, sector) => {
         try {
 
             dispatch(registerUserOngoing())
-            const response = await fetch("http://localhost:8000/api/user/register", {
+            const response = await fetch("https://glide-node-backend.herokuapp.com/api/user/register", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',

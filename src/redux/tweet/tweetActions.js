@@ -8,7 +8,7 @@ export const fetchTweets = (keyword) => {
             dispatch(fetchTweetsOngoing())
             let formData = new FormData()
             formData.append("keyword", keyword)
-            const response = await fetch("http://localhost:5000/keyword", {
+            const response = await fetch("https://glide-flask-backend.herokuapp.com/keyword", {
                 method: "POST",
                 body: formData,
             });

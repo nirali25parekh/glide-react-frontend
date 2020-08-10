@@ -10121,12 +10121,10 @@ const DEMO = {
   ],
 };
 
-
-function VideoIndexer(props){
-
+function VideoIndexer(props) {
   const uploadObject = {
     name: "file",
-    action: "http://127.0.0.1:5000/uploader",
+    action: "https://glide-flask-backend.herokuapp.com/uploader",
     onChange(info) {
       if (info.file.status !== "uploading") {
         if (info.fileList.length > 0) {
@@ -10142,265 +10140,281 @@ function VideoIndexer(props){
     },
   };
 
+  return (
+    <Content
+      className="site-layout"
+      style={{ padding: "0 50px", paddingTop: 64, minHeight: 400 }}
+    >
+      {!props.videoInsights.insights && (
+        <Upload {...uploadObject}>
+          <Button style={{ marginTop: 30 }}>
+            <UploadOutlined /> Click to upload a video and get useful insights
+          </Button>
+        </Upload>
+      )}
 
-    return (
-      <Content
-        className="site-layout"
-        style={{ padding: "0 50px", paddingTop: 64, minHeight: 400 }}
-      >
-        { !props.videoInsights.insights &&
-            <Upload {...uploadObject}>
-            <Button style={{ marginTop: 30 }}>
-              <UploadOutlined /> Click to upload a video and get useful insights
-            </Button>
-          </Upload>
-        }
-        
-        {props.videoInsights.insights && (
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={[]}
-            defaultOpenKeys={[]}
-            style={{ height: "100%", width:"100%" ,marginTop: 30, }}
+      {props.videoInsights.insights && (
+        <Menu
+          mode="inline"
+          defaultSelectedKeys={[]}
+          defaultOpenKeys={[]}
+          style={{ height: "100%", width: "100%", marginTop: 30 }}
+        >
+          {/* video information */}
+          <SubMenu
+            key="video-info"
+            icon={<VideoCameraFilled />}
+            title="Video Information"
           >
-            {/* video information */}
-            <SubMenu
-              key="video-info"
-              icon={<VideoCameraFilled />}
-              title="Video Information"
-            >
-              <Menu.Item key="1">
-                {" "}
-                <b>Name : </b> {props.videoInsights.insights.summarizedInsights.name}
-              </Menu.Item>
-              <Menu.Item key="2">
-                <b>Duration : </b> {props.videoInsights.insights.summarizedInsights.duration.time}
-              </Menu.Item>
-            </SubMenu>
+            <Menu.Item key="1">
+              {" "}
+              <b>Name : </b>{" "}
+              {props.videoInsights.insights.summarizedInsights.name}
+            </Menu.Item>
+            <Menu.Item key="2">
+              <b>Duration : </b>{" "}
+              {props.videoInsights.insights.summarizedInsights.duration.time}
+            </Menu.Item>
+          </SubMenu>
 
-            {/* keywords */}
-            <SubMenu key="keywords" icon={<FileWordFilled />} title="Keywords">
-              <List
-                size="large"
-                bordered
-                grid={{ gutter: 0, column: 3 }}
-                dataSource={props.videoInsights.insights.summarizedInsights.keywords}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Menu.Item key={item.id}>{item.name}</Menu.Item>
-                  </List.Item>
-                )}
-              />
-            </SubMenu>
+          {/* keywords */}
+          <SubMenu key="keywords" icon={<FileWordFilled />} title="Keywords">
+            <List
+              size="large"
+              bordered
+              grid={{ gutter: 0, column: 3 }}
+              dataSource={
+                props.videoInsights.insights.summarizedInsights.keywords
+              }
+              renderItem={(item) => (
+                <List.Item>
+                  <Menu.Item key={item.id}>{item.name}</Menu.Item>
+                </List.Item>
+              )}
+            />
+          </SubMenu>
 
-            {/* sentiments */}
-            <SubMenu key="sentiments" icon={<MehFilled />} title="Sentiments">
-              <List
-                size="large"
-                bordered
-                grid={{ gutter: 0, column: 2 }}
-                dataSource={props.videoInsights.insights.summarizedInsights.sentiments}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Menu.Item key={item.sentimentKey}>
-                      {" "}
-                      <b>
-                        {item.sentimentKey} {" : "}
-                      </b>{" "}
-                      {item.appearances[0].startTime} {"   to   "}{" "}
-                      {item.appearances[0].endTime}
-                    </Menu.Item>
-                  </List.Item>
-                )}
-              />
-            </SubMenu>
+          {/* sentiments */}
+          <SubMenu key="sentiments" icon={<MehFilled />} title="Sentiments">
+            <List
+              size="large"
+              bordered
+              grid={{ gutter: 0, column: 2 }}
+              dataSource={
+                props.videoInsights.insights.summarizedInsights.sentiments
+              }
+              renderItem={(item) => (
+                <List.Item>
+                  <Menu.Item key={item.sentimentKey}>
+                    {" "}
+                    <b>
+                      {item.sentimentKey} {" : "}
+                    </b>{" "}
+                    {item.appearances[0].startTime} {"   to   "}{" "}
+                    {item.appearances[0].endTime}
+                  </Menu.Item>
+                </List.Item>
+              )}
+            />
+          </SubMenu>
 
-            {/* Emotions */}
-            <SubMenu key="emotions" icon={<SmileFilled />} title="Emotions">
-              <List
-                size="large"
-                bordered
-                grid={{ gutter: 0, column: 2 }}
-                dataSource={props.videoInsights.insights.summarizedInsights.emotions}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Menu.Item key={item.type}>
-                      {" "}
-                      <b>
-                        {item.type} {" : "}
-                      </b>{" "}
-                      {item.appearances[0].startTime} {"   to   "}{" "}
-                      {item.appearances[0].endTime}
-                    </Menu.Item>
-                  </List.Item>
-                )}
-              />
-            </SubMenu>
+          {/* Emotions */}
+          <SubMenu key="emotions" icon={<SmileFilled />} title="Emotions">
+            <List
+              size="large"
+              bordered
+              grid={{ gutter: 0, column: 2 }}
+              dataSource={
+                props.videoInsights.insights.summarizedInsights.emotions
+              }
+              renderItem={(item) => (
+                <List.Item>
+                  <Menu.Item key={item.type}>
+                    {" "}
+                    <b>
+                      {item.type} {" : "}
+                    </b>{" "}
+                    {item.appearances[0].startTime} {"   to   "}{" "}
+                    {item.appearances[0].endTime}
+                  </Menu.Item>
+                </List.Item>
+              )}
+            />
+          </SubMenu>
 
-            {/* labels */}
-            <SubMenu key="labels" icon={<MessageFilled />} title="Labels">
-              <List
-                size="large"
-                bordered
-                grid={{ gutter: 0, column: 2 }}
-                dataSource={props.videoInsights.insights.summarizedInsights.labels}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Menu.Item key={item.name}>
+          {/* labels */}
+          <SubMenu key="labels" icon={<MessageFilled />} title="Labels">
+            <List
+              size="large"
+              bordered
+              grid={{ gutter: 0, column: 2 }}
+              dataSource={
+                props.videoInsights.insights.summarizedInsights.labels
+              }
+              renderItem={(item) => (
+                <List.Item>
+                  <Menu.Item key={item.name}>
+                    {" "}
+                    <b>
+                      {item.name} {" : "}
+                    </b>{" "}
+                    {item.appearances[0].startTime} {"   to   "}{" "}
+                    {item.appearances[0].endTime}
+                  </Menu.Item>
+                </List.Item>
+              )}
+            />
+          </SubMenu>
+
+          {/* Frame patterns */}
+          <SubMenu
+            key="frame-patterns"
+            icon={<LaptopOutlined />}
+            title="Frame Patterns"
+          >
+            <List
+              size="large"
+              bordered
+              grid={{ gutter: 0, column: 2 }}
+              dataSource={
+                props.videoInsights.insights.summarizedInsights.framePatterns
+              }
+              renderItem={(item) => (
+                <List.Item>
+                  <Menu.Item key={item.id}>
+                    {" "}
+                    <b>
+                      {item.name} {" : "}
+                    </b>{" "}
+                    {item.appearances[0].startTime} {"   to   "}{" "}
+                    {item.appearances[0].endTime}
+                  </Menu.Item>
+                </List.Item>
+              )}
+            />
+          </SubMenu>
+
+          {/* Brands */}
+          <SubMenu key="brands" icon={<IeCircleFilled />} title="Brands">
+            <List
+              size="large"
+              bordered
+              grid={{ gutter: 0, column: 1 }}
+              dataSource={
+                props.videoInsights.insights.summarizedInsights.brands
+              }
+              renderItem={(item) => (
+                <List.Item>
+                  <Menu.Item key={item.id}>
+                    <div>
                       {" "}
                       <b>
                         {item.name} {" : "}
                       </b>{" "}
-                      {item.appearances[0].startTime} {"   to   "}{" "}
-                      {item.appearances[0].endTime}
-                    </Menu.Item>
-                  </List.Item>
-                )}
-              />
-            </SubMenu>
+                    </div>
 
-            {/* Frame patterns */}
-            <SubMenu
-              key="frame-patterns"
-              icon={<LaptopOutlined />}
-              title="Frame Patterns"
-            >
-              <List
-                size="large"
-                bordered
-                grid={{ gutter: 0, column: 2 }}
-                dataSource={props.videoInsights.insights.summarizedInsights.framePatterns}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Menu.Item key={item.id}>
+                    <div>
+                      {item.appearances[0].startTime}
+                      {"   to   "} {item.appearances[0].endTime}
+                    </div>
+
+                    <div>
+                      {" "}
+                      <a href={item.referenceUrl} target="_blank">
+                        {" "}
+                        {item.referenceUrl}{" "}
+                      </a>
+                    </div>
+
+                    <div> {item.description} </div>
+                  </Menu.Item>
+                </List.Item>
+              )}
+            />
+          </SubMenu>
+
+          {/* Named People */}
+          <SubMenu
+            key="named-people"
+            icon={<UserOutlined />}
+            title="Named People"
+          >
+            <List
+              size="large"
+              bordered
+              grid={{ gutter: 0, column: 1 }}
+              dataSource={
+                props.videoInsights.insights.summarizedInsights.namedPeople
+              }
+              renderItem={(item) => (
+                <List.Item>
+                  <Menu.Item key={item.id}>
+                    <div>
                       {" "}
                       <b>
                         {item.name} {" : "}
                       </b>{" "}
-                      {item.appearances[0].startTime} {"   to   "}{" "}
-                      {item.appearances[0].endTime}
-                    </Menu.Item>
-                  </List.Item>
-                )}
-              />
-            </SubMenu>
+                    </div>
 
-            {/* Brands */}
-            <SubMenu key="brands" icon={<IeCircleFilled />} title="Brands">
-              <List
-                size="large"
-                bordered
-                grid={{ gutter: 0, column: 1 }}
-                dataSource={props.videoInsights.insights.summarizedInsights.brands}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Menu.Item key={item.id}>
-                      <div>
+                    <div>
+                      {item.appearances[0].startTime}
+                      {"   to   "} {item.appearances[0].endTime}
+                    </div>
+
+                    <div>
+                      {" "}
+                      <a href={item.referenceUrl} target="_blank">
                         {" "}
-                        <b>
-                          {item.name} {" : "}
-                        </b>{" "}
-                      </div>
+                        {item.referenceUrl}{" "}
+                      </a>
+                    </div>
+                    <div> {item.description} </div>
+                  </Menu.Item>
+                </List.Item>
+              )}
+            />
+          </SubMenu>
 
-                      <div>
-                        {item.appearances[0].startTime}
-                        {"   to   "} {item.appearances[0].endTime}
-                      </div>
+          {/* Topics */}
+          <SubMenu key="topics" icon={<IdcardFilled />} title="Topics">
+            <List
+              size="large"
+              bordered
+              grid={{ gutter: 0, column: 1 }}
+              dataSource={
+                props.videoInsights.insights.summarizedInsights.namedPeople
+              }
+              renderItem={(item) => (
+                <List.Item>
+                  <Menu.Item key={item.id}>
+                    <div>
+                      {" "}
+                      <b>
+                        {item.name} {" : "}
+                      </b>{" "}
+                    </div>
 
-                      <div>
+                    <div>
+                      {item.appearances[0].startTime}
+                      {"   to   "} {item.appearances[0].endTime}
+                    </div>
+
+                    <div>
+                      {" "}
+                      <a href={item.referenceUrl} target="_blank">
                         {" "}
-                        <a href={item.referenceUrl} target="_blank">
-                          {" "}
-                          {item.referenceUrl}{" "}
-                        </a>
-                      </div>
-
-                      <div> {item.description} </div>
-                    </Menu.Item>
-                  </List.Item>
-                )}
-              />
-            </SubMenu>
-
-            {/* Named People */}
-            <SubMenu
-              key="named-people"
-              icon={<UserOutlined />}
-              title="Named People"
-            >
-              <List
-                size="large"
-                bordered
-                grid={{ gutter: 0, column: 1 }}
-                dataSource={props.videoInsights.insights.summarizedInsights.namedPeople}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Menu.Item key={item.id}>
-                      <div>
-                        {" "}
-                        <b>
-                          {item.name} {" : "}
-                        </b>{" "}
-                      </div>
-
-                      <div>
-                        {item.appearances[0].startTime}
-                        {"   to   "} {item.appearances[0].endTime}
-                      </div>
-
-                      <div>
-                        {" "}
-                        <a href={item.referenceUrl} target="_blank">
-                          {" "}
-                          {item.referenceUrl}{" "}
-                        </a>
-                      </div>
-                      <div> {item.description} </div>
-                    </Menu.Item>
-                  </List.Item>
-                )}
-              />
-            </SubMenu>
-
-            {/* Topics */}
-            <SubMenu key="topics" icon={<IdcardFilled />} title="Topics">
-              <List
-                size="large"
-                bordered
-                grid={{ gutter: 0, column: 1 }}
-                dataSource={props.videoInsights.insights.summarizedInsights.namedPeople}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Menu.Item key={item.id}>
-                      <div>
-                        {" "}
-                        <b>
-                          {item.name} {" : "}
-                        </b>{" "}
-                      </div>
-
-                      <div>
-                        {item.appearances[0].startTime}
-                        {"   to   "} {item.appearances[0].endTime}
-                      </div>
-
-                      <div>
-                        {" "}
-                        <a href={item.referenceUrl} target="_blank">
-                          {" "}
-                          {item.referenceUrl}{" "}
-                        </a>
-                      </div>
-                    </Menu.Item>
-                  </List.Item>
-                )}
-              />
-            </SubMenu>
-          </Menu>
-        )}
-
-      </Content>
-    );
+                        {item.referenceUrl}{" "}
+                      </a>
+                    </div>
+                  </Menu.Item>
+                </List.Item>
+              )}
+            />
+          </SubMenu>
+        </Menu>
+      )}
+    </Content>
+  );
 }
 
 const mapStateToProps = (state) => {
