@@ -28,7 +28,7 @@ function App() {
         {/* routing wrapper */}
       <BrowserRouter>
       {/* header all the pages */}
-        <MyHeader />
+        <MyHeader/>
         {/* now routes in between -> acc to url content changes */}
         <Routes />
         {/* footer all the pages */}
