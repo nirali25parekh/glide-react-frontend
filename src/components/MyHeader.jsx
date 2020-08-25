@@ -17,7 +17,7 @@ const { SubMenu } = Menu;
 
 function MyHeader(props) {
   return (
-    <div style={{ overflow: "hidden", height: "100%", width: "100%" }}>
+    <div style={{ overflow: "hidden", height: "100%", width: "100%", }}>
       <Header
         style={{
           position: "fixed",
@@ -25,9 +25,10 @@ function MyHeader(props) {
           width: "100%",
           flexDirection: "row",
           display: "flex",
-          overflowX: "auto",
-          paddingRight: '300px',
-          WebkitOverflowScrolling: "touch",
+          overflowX: "visible",
+          overflowY:"scroll",
+          
+
           boxSizing: "content-box", // to avoid right scrollbar
         }}
       >
