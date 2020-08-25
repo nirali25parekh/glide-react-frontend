@@ -144,8 +144,7 @@ export class Tweets extends Component {
       <Content
         className="site-layout"
         style={{ padding: "0 50px", paddingTop: 64, minHeight: 800,
-        backgroundColor: "#001529",
-        opacity: 0.95,
+       
        }}
       >
         <Search

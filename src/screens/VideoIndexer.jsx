@@ -10166,8 +10166,7 @@ function VideoIndexer(props) {
     <Content
       className="site-layout"
       style={{ padding: "0 50px",
-      backgroundColor: "#001529",
-        opacity: 0.95,
+
          paddingTop: 64, minHeight: 800, alignItems:'center', overflowWrap:'break-word' }}
     >
       {!props.videoInsights.insights && (
