@@ -11,7 +11,7 @@ const positiveStyle = {
   alignItems: "center",
   justifyContent: "center",
   borderRadius: 20,
-  flex: 0.5,
+  minWidth:'20%',
 };
 
 const negativeStyle = {
@@ -22,7 +22,7 @@ const negativeStyle = {
   alignItems: "center",
   justifyContent: "center",
   borderRadius: 20,
-  flex: 0.5,
+  minWidth:'20%',
 };
 
 const neutralStyle = {
@@ -34,7 +34,7 @@ const neutralStyle = {
   alignItems: "center",
   justifyContent: "center",
   borderRadius: 20,
-  flex: 0.5,
+  minWidth:'20%',
 };
 
 export class RedditItem extends Component {
@@ -54,7 +54,7 @@ export class RedditItem extends Component {
               display: "flex",
               alignItems: "center",
               flexDirection: "column",
-              flex: 1,
+              minWidth: '20%',
             }}
           >
             <Avatar
@@ -64,12 +64,12 @@ export class RedditItem extends Component {
               src={this.props.item.user.profile_pic}
             />
             <b> {this.props.item.user.name} </b>
-            <h5> @{this.props.item.user.screen_name}</h5>
+            <h5 style={{ wordBreak:'break-all'}}> @{this.props.item.user.screen_name}</h5>
           </div>
         </Popover>
 
         {/* tweet part */}
-        <p style={{ display: "flex", flex: 3, margin: 20 }}>
+        <p style={{ display: "flex", minWidth: '50%', margin: 20, wordBreak:'break-all' }}>
           {this.props.item.tweet}
         </p>
 
@@ -83,8 +83,8 @@ export class RedditItem extends Component {
               : neutralStyle
           }
         >
-          <h3 style={{ textAlign: "center", fontSize: 20 }}>
-            {this.props.item.sentiment}
+          <h3 style={{ textAlign: "center", fontSize: 20, whiteSpace:'pre-wrap' }}>
+            {this.props.item.sentiment === 'negative' ? ':(' : this.props.item.sentiment === 'positive' ? ':)' : ":|" }
           </h3>
         </div>
       </div>

@@ -17,7 +17,7 @@ const { SubMenu } = Menu;
 
 function MyHeader(props) {
   return (
-    <Header style={{ position: "fixed", zIndex: 1, width: "100%" , flexDirection:'row', display:'flex'}}>
+    <Header style={{ position: "fixed", zIndex: 1, width: "100%" , flexDirection:'row', display:'flex', overflowX:'scroll' }}>
 
       <div className="logo"  style={{height:70, width: 70,}}>
         <Avatar
@@ -26,35 +26,25 @@ function MyHeader(props) {
         src={logo}/>
         </div>
 
-    {console.log('here', props.location.pathname)}
       <Menu theme="dark" mode="horizontal" selectedKeys={[props.location.pathname,]}>
         <Menu.Item key={"/home"}>
           <NavLink to="/home">Home</NavLink>
         </Menu.Item>
 
-        {props.userData.userId || props.userData.token ? (
           <Menu.Item key={"/tweets"}>
             <NavLink to="/tweets">Tweets</NavLink>
           </Menu.Item>
-        ) : (
-          <React.Fragment />
-        )}
 
-        {props.userData.userId || props.userData.token ? (
+        
           <Menu.Item key={"/reddit"}>
             <NavLink to="/reddit">Reddit</NavLink>
           </Menu.Item>
-        ) : (
-          <React.Fragment />
-        )}
+    
 
-        {props.userData.userId || props.userData.token ? (
           <Menu.Item key={"/videoindexer"}>
             <NavLink to="/videoindexer">Video Indexer</NavLink>
           </Menu.Item>
-        ) : (
-          <React.Fragment />
-        )}
+        
 
         {props.userData.userId || props.userData.token ? (
           <React.Fragment />

@@ -10122,13 +10122,18 @@ const DEMO = {
 };
 
 function VideoIndexer(props) {
+  let endpoint;
+  if (process.env.NODE_ENV === "development") {
+    endpoint = "http://localhost:5000/uploader";
+  } else {
+    endpoint = "https://glide-flask-backend.herokuapp.com/uploader";
+  }
   const uploadObject = {
     name: "file",
-    action: "https://glide-flask-backend.herokuapp.com/uploader",
+    action: endpoint,
     onChange(info) {
       if (info.file.status !== "uploading") {
         if (info.fileList.length > 0) {
-          console.log("in if");
           props.getInsights(info.fileList[0].response);
         }
       }
@@ -10139,16 +10144,35 @@ function VideoIndexer(props) {
       }
     },
   };
+  console.log('width', window.innerWidth)
+  let buttonStyle
+  if (window.innerWidth < 300){
+    // mobile
+    buttonStyle = {
+      marginTop: 30,
+      backgroundColor:'green',
+    }
+  } else {
+    // desktop
+    buttonStyle = {
+      marginTop: 30,
+      height: 100,
+    }
+  }
+  
+  
 
   return (
     <Content
       className="site-layout"
-      style={{ padding: "0 50px", paddingTop: 64, minHeight: 400 }}
+      style={{ padding: "0 50px", paddingTop: 64, minHeight: 500, alignItems:'center', overflowWrap:'break-word' }}
     >
       {!props.videoInsights.insights && (
-        <Upload {...uploadObject}>
-          <Button style={{ marginTop: 30 }}>
-            <UploadOutlined /> Click to upload a video and get useful insights
+        <Upload {...uploadObject} >
+          <Button style={buttonStyle}>
+            <UploadOutlined /> 
+            <div >Click to upload a video </div>
+            <div >and get useful insights </div>
           </Button>
         </Upload>
       )}

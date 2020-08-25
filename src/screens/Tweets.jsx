@@ -127,18 +127,19 @@ const DEMO = {
 export class Tweets extends Component {
 
   componentDidMount(){
-    // console.log(this.props.userData.sector)
-    var query = ""
-    for (let i =0; i<this.props.userData.sector.length;i++ ){
-      query = query.concat(this.props.userData.sector[i] ,' OR ')
+    
+    var query = "world"
+    if (this.props.userData.sector){
+      for (let i =0; i<this.props.userData.sector.length;i++ ){
+        query = query.concat(this.props.userData.sector[i] ,' OR ')
+      }
+      query = query.slice(0, -3)
     }
-    query = query.slice(0, -3)
-    // console.log('query', query)
+    console.log('query', query)
     this.props.fetchTweets(query)
   }
 
   render() {
-    // console.log('tweets',this.props.tweetData.tweets)
     return (
       <Content
         className="site-layout"

@@ -3,12 +3,17 @@ import { FETCH_TWEETS_ONGOING, FETCH_TWEETS_SUCCESS, FETCH_TWEETS_FAILURE, } fro
 
 export const fetchTweets = (keyword) => {
     return async (dispatch) => {
-        console.log('keyword', keyword)
         try {
+            let endpoint
             dispatch(fetchTweetsOngoing())
             let formData = new FormData()
             formData.append("keyword", keyword)
-            const response = await fetch("https://glide-flask-backend.herokuapp.com/keyword", {
+            if (process.env.NODE_ENV === 'development'){
+                endpoint = "http://localhost:5000/keyword"
+            } else {
+                endpoint = "https://glide-flask-backend.herokuapp.com/keyword"
+            }
+            const response = await fetch(endpoint, {
                 method: "POST",
                 body: formData,
             });

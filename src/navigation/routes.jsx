@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 import { connect } from "react-redux";
-import { Route, Switch, Redirect} from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Tweets from "../screens/Tweets";
 import Home from "../screens/Home";
 import NotFound from "../screens/NotFound";
@@ -36,28 +36,17 @@ class Routes extends React.Component {
           {this.props.userData.token ? <Redirect to="/tweets" /> : <Register />}
         </Route>
 
-            {/* route tweets, if logged in=> Tweets else login  */}
-        <Route path="/tweets" exact>
-          {this.props.userData.token ? <Tweets /> : <Redirect to="/login" />}
-        </Route>
+        {/* route tweets, always open  */}
+        <Route path="/tweets" exact component={Tweets} />
 
-{/* route reddit, if logged in=> Reddit else login  */}
-        <Route path="/reddit" exact>
-          {this.props.userData.token ? <Reddit /> : <Redirect to="/login" />}
-        </Route>
+        {/* route reddit, always open  */}
+        <Route path="/reddit" exact component={Reddit} />
 
-{/* route videoindexer, if logged in=> VideoIndexer else login  */}
-        <Route path="/videoindexer" exact>
-          {this.props.userData.token ? (
-            <VideoIndexer />
-          ) : (
-            <Redirect to="/login" />
-          )}
-        </Route>
-
+        {/* route videoindexer, always open  */}
+        <Route path="/videoindexer" exact component={VideoIndexer} />
 
         {/* any other url */}
-        <Route component={NotFound}/>
+        <Route component={NotFound} />
         <Redirect to="/404" />
       </Switch>
     );

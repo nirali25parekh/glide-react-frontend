@@ -3,10 +3,16 @@ import { FETCH_REDDITS_ONGOING, FETCH_REDDITS_SUCCESS, FETCH_REDDITS_FAILURE, } 
 export const fetchReddits = (sector) => {
     return async (dispatch) => {
         try {
+            let endpoint
             dispatch(fetchRedditsOngoing())
             let formData = new FormData()
             formData.append("sector", sector)
-            const response = await fetch("https://glide-flask-backend.herokuapp.com/reddit", {
+            if (process.env.NODE_ENV === 'development'){
+                endpoint = "http://localhost:5000/reddit"
+            } else {
+                endpoint = "https://glide-flask-backend.herokuapp.com/reddit"
+            }
+            const response = await fetch(endpoint, {
                 method: "POST",
                 body: formData,
             });

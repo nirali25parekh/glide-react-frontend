@@ -7,9 +7,14 @@ import {
 export const loginUser = (email, password) => {
     return async (dispatch) => {
         try {
+            let endpoint
             dispatch(loginUserOngoing())
-            // console.log('pressed')
-            const response = await fetch("https://glide-node-backend.herokuapp.com/api/user/login", {
+            if (process.env.NODE_ENV === 'development'){
+                endpoint = "http://localhost:5000/user/login"
+            } else {
+                endpoint = "https://glide-flask-backend.herokuapp.com/user/login"
+            }
+            const response = await fetch(endpoint, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -17,15 +22,12 @@ export const loginUser = (email, password) => {
                 },
                 body: JSON.stringify({ email: email, password: password })
             });
-            console.log('here', response)
     
             if (response.ok) {
                 const responseJsonSuccess = await response.json()
-                // console.log(responseJsonSuccess)
                 dispatch(loginUserSuccess(responseJsonSuccess.token,responseJsonSuccess.sector,responseJsonSuccess.user ))
             } else {
                 const responseJsonFailure = await response.json()
-                // console.log(responseJsonFailure)
                 return dispatch(loginUserFailed(responseJsonFailure.error))
             }
         }
@@ -40,9 +42,14 @@ export const loginUser = (email, password) => {
 export const registerUser = (name, email, password, sector) => {
     return async (dispatch) => {
         try {
-
+            let endpoint
             dispatch(registerUserOngoing())
-            const response = await fetch("https://glide-node-backend.herokuapp.com/api/user/register", {
+            if (process.env.NODE_ENV === 'development'){
+                endpoint = "http://localhost:5000/user/register"
+            } else {
+                endpoint = "https://glide-flask-backend.herokuapp.com/user/register"
+            }
+            const response = await fetch(endpoint, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,10 +57,8 @@ export const registerUser = (name, email, password, sector) => {
                 },
                 body: JSON.stringify({ name: name, email: email, password: password, sector: sector })
             });
-            // console.log(response)
             if (response.ok) {
                 const responseJsonSuccess = await response.json()
-                // console.log(responseJsonSuccess)
                 dispatch(registerUserSuccess(responseJsonSuccess.user, responseJsonSuccess.sector ))
             } else {
                 const responseJsonFailure = await response.json()

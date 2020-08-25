@@ -5,17 +5,29 @@ const { Header, Content, Footer } = Layout;
 
 export class RedditsList extends Component {
 
+  
+  state={
+    columnNo: 5,
+  }
   componentDidMount() {
-    console.log(this.props.reddits)
+    console.log(window.innerWidth , this.state.columnNo)
+    if (window.innerWidth < 400){
+      this.setState({columnNo: 1})
+    } else if (window.innerWidth < 800){
+      this.setState({columnNo: 2})
+    } else if (window.innerWidth < 1000){
+      this.setState({columnNo: 4})
+    } else {
+      this.setState({columnNo: 5})
+    }
   }
 
   render() {
     return (
       <List
-        size="large"
+        size="small"
         bordered
-        // style={{marginRight: 100}}
-        grid={{ gutter: 0, column: 5 }}
+        grid={{ gutter: 0, column: this.state.columnNo }}
         dataSource={this.props.reddits}
         renderItem={(item) => (
           <List.Item>
