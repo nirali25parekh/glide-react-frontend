@@ -24,7 +24,9 @@ export class Reddit extends Component {
     return (
       <Content
         className="site-layout"
-        style={{ padding: "0 50px", paddingTop: 64, minHeight: 400 }}
+        style={{ padding: "0 50px", 
+        backgroundColor: "#001529",
+        opacity: 0.95, paddingTop: 64, minHeight: 800 }}
       >
         <Search
           style={{ marginTop: 20 }}

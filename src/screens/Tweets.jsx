@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Layout, Menu, Breadcrumb } from "antd";
-
+import bgImage1 from "../images/bgImage1.jpg";
 import { Input, Spin, Alert } from "antd";
 import TweetsList from "../components/TweetsList";
 import { connect } from "react-redux";
@@ -143,7 +143,10 @@ export class Tweets extends Component {
     return (
       <Content
         className="site-layout"
-        style={{ padding: "0 50px", paddingTop: 64, minHeight: 400 }}
+        style={{ padding: "0 50px", paddingTop: 64, minHeight: 800,
+        backgroundColor: "#001529",
+        opacity: 0.95,
+       }}
       >
         <Search
           style={{ marginTop: 20 }}
