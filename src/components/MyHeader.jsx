@@ -27,8 +27,6 @@ function MyHeader(props) {
           display: "flex",
           overflowX: "visible",
           overflowY:"scroll",
-          
-
           boxSizing: "content-box", // to avoid right scrollbar
         }}
       >
@@ -40,6 +38,7 @@ function MyHeader(props) {
           theme="dark"
           mode="horizontal"
           selectedKeys={[props.location.pathname]}
+          style={{paddingRight: '300px'}}
         >
           <Menu.Item key={"/home"}>
             <NavLink to="/home">Home</NavLink>
